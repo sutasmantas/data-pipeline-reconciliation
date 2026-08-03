@@ -1,0 +1,19 @@
+{
+  "checks": [
+    {"actual": 5, "expected": 5, "name": "row_count", "passed": true},
+    {"actual": 1550, "expected": 1550, "name": "amount_total", "passed": true},
+    {"actual": 0, "expected": 0, "name": "completeness", "passed": true},
+    {"actual": 0, "expected": 0, "name": "uniqueness", "passed": true},
+    {"actual": "2026-08-03T13:00:00Z", "expected": "2026-08-03T13:00:00Z", "name": "freshness", "passed": true},
+    {"actual": 2, "expected": 2, "name": "quarantine", "passed": true}
+  ],
+  "destination_amount": 1550,
+  "destination_rows": 5,
+  "expected_amount": 1550,
+  "expected_unique_rows": 5,
+  "gate": "PASS",
+  "quarantined_rows": 2,
+  "run_id": "04e1ec20f4d273e3",
+  "source_rows": 9,
+  "valid_rows": 7
+}

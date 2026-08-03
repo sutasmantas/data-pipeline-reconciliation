@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres@sha256:742f40ea20b9ff2ff31db5458d127452988a2164df9e17441e191f3b72252193
+    environment:
+      POSTGRES_USER: pipelineforge
+      POSTGRES_PASSWORD: pipelineforge
+      POSTGRES_DB: pipelineforge
+    ports:
+      - "127.0.0.1:${PIPELINEFORGE_POSTGRES_PORT:-35432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pipelineforge -d pipelineforge"]
+      interval: 2s
+      timeout: 2s
+      retries: 20
+    tmpfs:
+      - /var/lib/postgresql/data

@@ -1,0 +1,16 @@
+.git
+.github
+.venv
+.evidence
+.pipelineforge
+.pytest_cache
+.mypy_cache
+.ruff_cache
+dist
+build
+docs
+tests
+airflow
+*.duckdb
+*.sqlite3
+**/__pycache__

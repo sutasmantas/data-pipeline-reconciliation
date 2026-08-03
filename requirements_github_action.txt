@@ -1,0 +1,4 @@
+dlt==0.2.7
+google-cloud-bigquery==3.10.0
+psycopg2==2.9.6
+pyarrow==12.0.0

@@ -1,0 +1,30 @@
+{
+  "adapter_id": "catalog_orders",
+  "endpoint_path": "/warehouse/catalog-orders",
+  "auth": {
+    "secret_ref": "env:PIPELINEFORGE_UNUSED_MAPPING_TOKEN",
+    "header": "Authorization",
+    "prefix": "Bearer "
+  },
+  "idempotency_header": "Idempotency-Key",
+  "correlation_header": "X-Correlation-ID",
+  "timeout_seconds": 10,
+  "mapping": {
+    "order_id": "id",
+    "buyer_name": "customer",
+    "ordered_on": "order_date",
+    "changed_at": "updated_at",
+    "gross_amount": "amount"
+  },
+  "constants": {
+    "source_system": "catalog"
+  },
+  "required_source_paths": [
+    "order_id",
+    "buyer_name",
+    "ordered_on",
+    "changed_at",
+    "gross_amount"
+  ],
+  "redacted_fields": []
+}

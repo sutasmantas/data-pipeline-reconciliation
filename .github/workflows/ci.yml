@@ -1,0 +1,69 @@
+name: verify
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  application:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres@sha256:742f40ea20b9ff2ff31db5458d127452988a2164df9e17441e191f3b72252193
+        env:
+          POSTGRES_USER: pipelineforge
+          POSTGRES_PASSWORD: pipelineforge
+          POSTGRES_DB: pipelineforge
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U pipelineforge -d pipelineforge"
+          --health-interval 2s --health-timeout 2s --health-retries 20
+    env:
+      PIPELINEFORGE_TEST_POSTGRES_URL: postgresql://pipelineforge:pipelineforge@127.0.0.1:5432/pipelineforge
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install vendor/*.whl
+      - run: python -m pip install -e ".[test]"
+      - run: python -m ruff check .
+      - run: python -m mypy
+      - run: python -m pytest --cov=pipelineforge --cov-report=xml
+      - run: python -m build
+      - run: python -m twine check dist/*
+      - run: docker build -t pipelineforge:ci .
+
+  airflow-contract:
+    runs-on: ubuntu-latest
+    container:
+      image: apache/airflow@sha256:7c7eda27057370576b845ced1269ec539e50588fb43ad0d3d9d20eff5f629fb6
+      options: --user 0
+    env:
+      AIRFLOW_HOME: /tmp/airflow
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hand the checked-out workspace to the Airflow runtime user
+        run: chown -R airflow:root "$GITHUB_WORKSPACE"
+      - name: Install project contracts as the Airflow runtime user
+        run: >-
+          su --preserve-environment airflow --shell /bin/bash --command
+          'export HOME=/home/airflow PATH=/home/airflow/.local/bin:$PATH; pip install apache-airflow==3.3.0 vendor/*.whl -e .'
+      - name: Initialize the ephemeral Airflow metadata database
+        run: >-
+          su --preserve-environment airflow --shell /bin/bash --command
+          'export HOME=/home/airflow PATH=/home/airflow/.local/bin:$PATH; airflow db migrate'
+      - name: Parse the Airflow 3 DAG through the public SDK
+        env:
+          AIRFLOW__CORE__DAGS_FOLDER: ${{ github.workspace }}/airflow/dags
+        run: >-
+          su --preserve-environment airflow --shell /bin/bash --command
+          'export HOME=/home/airflow PATH=/home/airflow/.local/bin:$PATH; airflow dags list --local | grep pipelineforge_file_migration'
+      - name: Reject DAG import errors
+        env:
+          AIRFLOW__CORE__DAGS_FOLDER: ${{ github.workspace }}/airflow/dags
+        run: >-
+          su --preserve-environment airflow --shell /bin/bash --command
+          'export HOME=/home/airflow PATH=/home/airflow/.local/bin:$PATH; airflow dags list-import-errors --local --output json | tail -n 1 | grep -Fx "[]"'

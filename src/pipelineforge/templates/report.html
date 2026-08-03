@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PipelineForge reconciliation {{ report.run_id }}</title>
+  <style>
+    :root { color-scheme: light; --paper:#f4efe2; --ink:#171717; --blue:#2149d8; --red:#d8422f; --rule:#9d978a; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial,sans-serif; }
+    header, main { width:min(1120px, calc(100% - 32px)); margin:auto; }
+    header { border-bottom:3px solid var(--ink); padding:28px 0 18px; display:flex; justify-content:space-between; align-items:end; }
+    h1 { margin:0; font:700 clamp(28px,5vw,58px)/.95 Georgia,serif; letter-spacing:-.035em; }
+    .run { font:12px/1.4 ui-monospace,monospace; text-align:right; }
+    .rail { display:grid; grid-template-columns:repeat(4,1fr); border-bottom:1px solid var(--ink); }
+    .rail div { padding:14px 10px; border-right:1px solid var(--rule); font:700 11px ui-monospace,monospace; text-transform:uppercase; }
+    .rail div:last-child { border-right:0; }
+    .ledger { display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--ink); border-top:0; }
+    section { padding:24px; min-height:220px; }
+    section:first-child { border-right:1px solid var(--ink); }
+    h2 { margin:0 0 20px; font:700 22px Georgia,serif; }
+    dl { display:grid; grid-template-columns:1fr auto; margin:0; }
+    dt, dd { margin:0; padding:9px 0; border-top:1px solid var(--rule); }
+    dd { font:700 14px ui-monospace,monospace; }
+    table { width:100%; border-collapse:collapse; margin:28px 0; }
+    th, td { border:1px solid var(--rule); padding:10px; text-align:left; }
+    th { font:700 11px ui-monospace,monospace; text-transform:uppercase; }
+    .pass { color:var(--blue); } .fail { color:var(--red); }
+    @media(max-width:650px) { .ledger { grid-template-columns:1fr; } section:first-child { border-right:0; border-bottom:1px solid var(--ink); } .rail { grid-template-columns:1fr 1fr; } header { align-items:start; flex-direction:column; gap:16px; } .run { text-align:left; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Reconciliation dossier</h1>
+    <div class="run">RUN {{ report.run_id }}<br>GATE {{ report.gate }}</div>
+  </header>
+  <main>
+    <nav class="rail" aria-label="Pipeline stages"><div>01 Extract</div><div>02 Contract</div><div>03 Load</div><div>04 Reconcile</div></nav>
+    <div class="ledger">
+      <section><h2>Source register</h2><dl><dt>Observed rows</dt><dd>{{ report.source_rows }}</dd><dt>Valid rows</dt><dd>{{ report.valid_rows }}</dd><dt>Quarantined</dt><dd>{{ report.quarantined_rows }}</dd><dt>Expected unique</dt><dd>{{ report.expected_unique_rows }}</dd><dt>Expected amount</dt><dd>{{ report.expected_amount }}</dd></dl></section>
+      <section><h2>Destination register</h2><dl><dt>Loaded rows</dt><dd>{{ report.destination_rows }}</dd><dt>Loaded amount</dt><dd>{{ report.destination_amount }}</dd><dt>Decision</dt><dd class="{{ report.gate|lower }}">{{ report.gate }}</dd></dl></section>
+    </div>
+    <table><thead><tr><th>Check</th><th>Expected</th><th>Actual</th><th>Status</th></tr></thead><tbody>{% for check in report.checks %}<tr><td>{{ check.name }}</td><td>{{ check.expected }}</td><td>{{ check.actual }}</td><td class="{{ 'pass' if check.passed else 'fail' }}">{{ 'PASS' if check.passed else 'FAIL' }}</td></tr>{% endfor %}</tbody></table>
+  </main>
+</body>
+</html>

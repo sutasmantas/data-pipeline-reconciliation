@@ -1,0 +1,4 @@
+fixtures/catalog/orders.csv -text
+fixtures/catalog/orders.jsonl -text
+fixtures/catalog/orders.parquet binary
+vendor/*.whl binary

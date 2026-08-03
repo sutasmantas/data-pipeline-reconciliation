@@ -1,0 +1,4 @@
+order_id,buyer_name,ordered_on,changed_at,gross_amount
+10,Alpha,2026-07-31,2026-08-01T09:00:00Z,100
+11,Beta,2026-07-31,2026-08-01T10:00:00Z,200
+99,,2026-07-31,2026-08-01T11:00:00Z,999
