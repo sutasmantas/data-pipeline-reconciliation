@@ -12,7 +12,7 @@ dependencies = [
   "adapterproof==0.2.0",
   "deliveryguard==0.2.0",
   "dlt[duckdb,postgres,sql-database]==1.29.1",
-  "fastapi==0.136.3",
+  "fastapi==0.141.1",
   "Jinja2==3.1.6",
   "pandas==3.0.5",
   "pyarrow==25.0.0",
