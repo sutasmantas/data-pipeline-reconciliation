@@ -28,8 +28,8 @@ jobs:
     env:
       PIPELINEFORGE_TEST_POSTGRES_URL: postgresql://pipelineforge:pipelineforge@127.0.0.1:5432/pipelineforge
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
           cache: pip
@@ -50,7 +50,7 @@ jobs:
     env:
       AIRFLOW_HOME: /tmp/airflow
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Hand the checked-out workspace to the Airflow runtime user
         run: chown -R airflow:root "$GITHUB_WORKSPACE"
       - name: Install project contracts as the Airflow runtime user
