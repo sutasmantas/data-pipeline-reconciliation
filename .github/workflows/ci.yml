@@ -4,6 +4,12 @@ on:
   push:
   pull_request:
 
+# Least privilege: these jobs only read the repository and run tests.
+# Without this block the workflow inherits the repository default token
+# scope, which can be read-write.
+permissions:
+  contents: read
+
 jobs:
   application:
     runs-on: ubuntu-latest

@@ -2,3 +2,9 @@ fixtures/catalog/orders.csv -text
 fixtures/catalog/orders.jsonl -text
 fixtures/catalog/orders.parquet binary
 vendor/*.whl binary
+# Hash manifests are consumed by `sha256sum -c`, which treats a trailing CR as
+# part of the filename, and are compared against records kept outside this
+# repository. Keep them LF on every platform.
+*.sha256 text eol=lf
+SHA256SUMS text eol=lf
+*.whl binary

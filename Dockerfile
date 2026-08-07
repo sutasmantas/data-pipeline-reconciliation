@@ -13,8 +13,8 @@ COPY contracts/ ./contracts/
 COPY fixtures/ ./fixtures/
 
 RUN python -m pip install --no-cache-dir \
-      vendor/adapterproof-0.1.0-py3-none-any.whl \
-      vendor/deliveryguard-0.1.0-py3-none-any.whl \
+      vendor/adapterproof-0.2.0-py3-none-any.whl \
+      vendor/deliveryguard-0.2.0-py3-none-any.whl \
     && python -m pip install --no-cache-dir . \
     && useradd --create-home --uid 10001 pipelineforge \
     && mkdir /data \

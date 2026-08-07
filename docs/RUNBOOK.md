@@ -4,7 +4,7 @@
 
 ```powershell
 py -3.11 -m venv .venv
-.\.venv\Scripts\python -m pip install vendor\adapterproof-0.1.0-py3-none-any.whl vendor\deliveryguard-0.1.0-py3-none-any.whl
+.\.venv\Scripts\python -m pip install vendor\adapterproof-0.2.0-py3-none-any.whl vendor\deliveryguard-0.2.0-py3-none-any.whl
 .\.venv\Scripts\python -m pip install -e ".[test]"
 .\.venv\Scripts\pipelineforge migrate-files --work-dir .pipelineforge
 .\.venv\Scripts\pipelineforge serve --evidence-dir .pipelineforge\evidence
