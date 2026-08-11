@@ -2,7 +2,7 @@
 
 Date: 2026-08-05
 
-Purpose: reuse maintained connector, CDC, quality, lineage and orchestration components before writing consequential pipeline logic. Licenses are intentionally ignored; runtime fit, maintenance, limitations and glue/upgrade cost decide adoption.
+Purpose: reuse maintained connector, CDC, quality, lineage and orchestration components before writing consequential pipeline logic. Runtime fit, maintenance, limitations and glue/upgrade cost decide adoption.
 
 ## Current seams
 
