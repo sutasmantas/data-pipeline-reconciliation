@@ -51,3 +51,19 @@ and clean-checkout gates are complete. No decorative polish was started.
 
 All rows are `PASS`; P4 may now be merged locally. ContextSidecar remains
 explicitly excluded.
+# Technique-dossier checkpoint — 2026-08-05
+
+- Branch: `agent/pipeline-forge-technique-dossier`
+- Clean base: `main` at `1e0c790e0eb76b207c8c2a151d651db95146b510`
+- Dossier commit: `3f48fe9`
+- Systematic evidence gate: `PASS` (all eleven gates in
+  `RESEARCH_DECISION.md`).
+- Experiment/technique-ceiling gate: `PARTIAL`; P0-P4 are designs only.
+- Verification: `python -m ruff check src tests` and `python -m pytest -q` ->
+  19 passed, 1 skipped because `PIPELINEFORGE_TEST_POSTGRES_URL` is not set.
+- Remaining limitations: no stage-level crash/scale result, CDC/deletion
+  result, semantic-quality engine comparison, complete lineage, streaming or
+  lakehouse evidence, or production SLA.
+- Exact next action: P0 TPC-DI-subset/fault/reconciliation harness, then P1 dlt
+  batch/incremental crash-scale matrix. Do not implement CDC or a quality
+  framework before those controls identify a gap.
