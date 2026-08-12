@@ -1,5 +1,7 @@
 # PipelineForge
 
+**Verification:** [claim-to-artifact map and rerun commands](https://sutasmantas.github.io/evidence/#pipelineforge) · [machine-readable receipt](https://sutasmantas.github.io/evidence/receipt.json)
+
 PipelineForge moves changing SQL, REST, CSV, JSONL, and Parquet data into
 DuckDB or PostgreSQL and produces an auditable reconciliation gate.
 

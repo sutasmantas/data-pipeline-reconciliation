@@ -1,5 +1,7 @@
 # PipelineForge expertise notes
 
+**Verification:** [claim-to-artifact map and rerun commands](https://sutasmantas.github.io/evidence/#pipelineforge) · [machine-readable receipt](https://sutasmantas.github.io/evidence/receipt.json)
+
 Date: 2026-08-05
 
 No P-series experiment ran in this dossier slice. The notes distinguish externally closed architecture decisions from project-local results that remain open.
