@@ -11,20 +11,20 @@ requires-python = ">=3.11,<3.14"
 dependencies = [
   "adapterproof==0.2.0",
   "deliveryguard==0.2.0",
-  "dlt[duckdb,postgres,sql-database]==1.29.1",
-  "fastapi==0.136.3",
+  "dlt[duckdb,postgres,sql-database]==1.30.0",
+  "fastapi==0.141.1",
   "Jinja2==3.1.6",
-  "pandas==3.0.5",
-  "pyarrow==25.0.0",
+  "pandas==3.0.6",
+  "pyarrow==25.0.1",
   "SQLAlchemy>=2.0,<2.1",
-  "uvicorn==0.52.1",
+  "uvicorn==0.53.0",
 ]
 
 [project.optional-dependencies]
-airflow = ["apache-airflow==3.3.0"]
+airflow = ["apache-airflow==3.3.2"]
 test = [
   "build>=1.3,<2",
-  "httpx2==2.9.1",
+  "httpx2==2.13.0",
   "mypy>=1.18,<3",
   "pytest>=8.4,<10",
   "pytest-cov>=7,<8",
